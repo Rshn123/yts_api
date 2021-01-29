@@ -13,5 +13,4 @@ class MovieProvider extends ChangeNotifier{
     isLoading = false;
     notifyListeners();
   }
-
 }

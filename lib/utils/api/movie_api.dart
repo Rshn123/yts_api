@@ -8,13 +8,12 @@ String url ="https://yts.mx/api/v2/list_movies.json";
 Future<List<MovieData>> getAllMovieData(context) async{
   var movieData = List<MovieData>();
   try{
-    http.Response response = await http.get("$url?limit=2");
+    http.Response response = await http.get("$url?limit=20");
     int statusCode = response.statusCode;
 
     if(statusCode == 200){
       Map<String, dynamic> movieDatas= Map<String, dynamic>.from(json.decode(response.body));
       movieData = (movieDatas["data"]["movies"] as List).map((val)=>MovieData.fromJson(val)).toList();
-      print(movieData[0].title);
     }
   }on SocketException{
     return null;

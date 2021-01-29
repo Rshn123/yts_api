@@ -9,7 +9,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -22,29 +21,61 @@ class _MainScreenState extends State<MainScreen> {
     var movieData = Provider.of<MovieProvider>(context);
     print("Build");
     return Scaffold(
-      appBar: AppBar(
-        title: Text("YTS-API"),
-      ),
-      body: Center(
-        child: movieData.isLoading?CircularProgressIndicator():
-        ListView.builder(
-            itemCount: movieData.allMovieData.length,
-            itemBuilder: (BuildContext context, int index){
-            return Row(
-              children: [
-                Container(
-                  width: 100,
-                    height: 100,
-                    child: Image.network(movieData.allMovieData[index].mediumCoverImage, fit: BoxFit.scaleDown),),
-                Card(
-                  child: Text(
-                    "${movieData.allMovieData[index].id}"
-                  )
-                ),
-              ],
-            );
-        }),
-      ),
-    );
+        appBar: AppBar(title: Center(child: Text("YTS", style: TextStyle(
+          color: Colors.green
+        )),),
+        backgroundColor: Colors.white,
+        elevation: 0,),
+        body: movieData.isLoading
+            ? CircularProgressIndicator()
+            : GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 1.6),
+                    crossAxisCount: 2),
+                itemCount: movieData.allMovieData.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 240,
+                        width: 140,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 200,
+                              width: 140,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 5,
+                                        offset: Offset(2, 3),
+                                        spreadRadius: 2,
+                                        color: Colors.black)
+                                  ],
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Colors.grey.withOpacity(0.2),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        movieData.allMovieData[index]
+                                            .mediumCoverImage,
+                                      ),
+                                      fit: BoxFit.fill)),
+                            ),
+                            SizedBox(height: 4),
+                            Column(children: [
+                              Text("${movieData.allMovieData[index].title}")
+                            ]),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }));
   }
 }
