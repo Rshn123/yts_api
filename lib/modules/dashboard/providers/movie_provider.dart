@@ -9,7 +9,6 @@ class MovieProvider extends ChangeNotifier{
   getAllMovie(context) async{
     isLoading = true;
     allMovieData = await getAllMovieData(context);
-    print(allMovieData);
     isLoading = false;
     notifyListeners();
   }

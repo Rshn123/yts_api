@@ -8,7 +8,7 @@ String url ="https://yts.mx/api/v2/list_movies.json";
 Future<List<MovieData>> getAllMovieData(context) async{
   var movieData = List<MovieData>();
   try{
-    http.Response response = await http.get("$url?limit=20");
+    http.Response response = await http.get("$url?limit=30");
     int statusCode = response.statusCode;
 
     if(statusCode == 200){

@@ -22,59 +22,63 @@ class _MainScreenState extends State<MainScreen> {
     print("Build");
     return Scaffold(
         appBar: AppBar(title: Center(child: Text("YTS", style: TextStyle(
-          color: Colors.green
+          color: Colors.green,
+          fontSize: 25
         )),),
-        backgroundColor: Colors.white,
-        elevation: 0,),
+        backgroundColor: Color(0xffffffff),
+        elevation: 1,),
         body: movieData.isLoading
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 1.6),
+                        (MediaQuery.of(context).size.height / 1.57),
                     crossAxisCount: 2),
                 itemCount: movieData.allMovieData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 240,
-                        width: 140,
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 200,
-                              width: 140,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 5,
-                                        offset: Offset(2, 3),
-                                        spreadRadius: 2,
-                                        color: Colors.black)
-                                  ],
-                                  border: Border.all(
-                                    width: 2,
-                                    color: Colors.grey.withOpacity(0.2),
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        movieData.allMovieData[index]
-                                            .mediumCoverImage,
-                                      ),
-                                      fit: BoxFit.fill)),
-                            ),
-                            SizedBox(height: 4),
-                            Column(children: [
-                              Text("${movieData.allMovieData[index].title}")
-                            ]),
-                          ],
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(0,8.0,0,0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 240,
+                          width: 140,
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 200,
+                                width: 140,
+                                decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 5,
+                                          offset: Offset(2, 3),
+                                          spreadRadius: 2,
+                                          color: Colors.black)
+                                    ],
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.grey.withOpacity(0.2),
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          movieData.allMovieData[index]
+                                              .mediumCoverImage,
+                                        ),
+                                        fit: BoxFit.fill)),
+                              ),
+                              SizedBox(height: 4),
+                              Column(children: [
+                                Text("${movieData.allMovieData[index].title}")
+                              ]),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 }));
   }
