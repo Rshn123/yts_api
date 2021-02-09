@@ -4,6 +4,7 @@ import 'package:yts/constants/app_color.dart';
 import 'package:yts/constants/app_constants.dart';
 import 'package:yts/modules/dashboard/models/movie_data.dart';
 import 'package:yts/modules/dashboard/providers/movie_provider.dart';
+import 'package:yts/modules/dashboard/screens/widgets/detail_movie_card.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   MovieData data;
@@ -32,6 +33,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   Widget _movieDetail(String movieName) {
     return Text(
       movieName,
+      textAlign: TextAlign.center,
       style: TextStyle(fontSize: 20, color: Color(0xffffffff), shadows: [
         Shadow(
           color: Colors.black.withOpacity(0.5),
@@ -94,55 +96,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     );
   }
 
-  Widget _movieCard(int index, MovieProvider movieData){
-    return Expanded(
-      child: Container(
-        height: 240,
-        width: 140,
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, movieDetailPageRoute,
-                    arguments:
-                    movieData.movieDataGenre[index], );
-              },
-              child: Container(
-                height: 200,
-                width: 140,
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          spreadRadius: 4,
-                          color: Colors.white)
-                    ],
-                    borderRadius:
-                    BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                          movieData
-                              .movieDataGenre[index]
-                              .mediumCoverImage,
-                        ),
-                        fit: BoxFit.fill)),
-              ),
-            ),
-            SizedBox(height: 6),
-            Column(children: [
-              Text(
-                  "${movieData.movieDataGenre[index].titleLong}",
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white))
-            ]),
-          ],
-        ),
-      ),
-    );
-
-  }
 
   @override
   void initState() {
@@ -199,6 +152,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                         image: NetworkImage(widget.data.largeCoverImage),
+                        fit: BoxFit.fill
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -239,13 +193,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               children: [
                                 Row(
                                   children: [
-                                    _movieCard(0, movieData),
-                                    _movieCard(2, movieData)
+                                    DetailMovieCard(context: context, index: 0, movieData: movieData),
+                                    DetailMovieCard(context: context, index: 2, movieData: movieData)
                                   ],
                                 ), Row(
                                   children: [
-                                    _movieCard(3, movieData),
-                                    _movieCard(1, movieData),
+                                    DetailMovieCard(context: context, index: 3, movieData: movieData),
+                                    DetailMovieCard(context: context, index: 1, movieData: movieData),
                                   ],
                                 ),
                               ],

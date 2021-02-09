@@ -5,6 +5,7 @@ import 'package:yts/utils/api/movie_api.dart';
 class MovieProvider extends ChangeNotifier{
   List<MovieData> popularMovieData =  List<MovieData>();
   List<MovieData> latestMovieData =  List<MovieData>();
+  List<MovieData> allLatestMovieData =  List<MovieData>();
   List<MovieData> upcomingMovieData =  List<MovieData>();
   List<MovieData> movieDataGenre =  List<MovieData>();
   var isLoading = false;
@@ -33,6 +34,13 @@ class MovieProvider extends ChangeNotifier{
   getUpcomingMovie(context) async{
     isLoading = true;
     upcomingMovieData = await getUpcomingMovies(context);
+    isLoading = false;
+    notifyListeners();
+  }
+
+  getAllLatestMovie(context) async{
+    isLoading = true;
+    allLatestMovieData = await getAlllatestMovies(context);
     isLoading = false;
     notifyListeners();
   }

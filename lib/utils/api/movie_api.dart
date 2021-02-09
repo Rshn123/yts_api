@@ -63,7 +63,22 @@ Future<List<MovieData>> getUpcomingMovies(context) async{
     if(statusCode == 200){
       Map<String, dynamic> movieDatas= Map<String, dynamic>.from(json.decode(response.body));
       movieData = (movieDatas["data"]["movies"] as List).map((val)=>MovieData.fromJson(val)).toList();
-      print(movieData);
+    }
+  }on SocketException{
+    return null;
+  }
+  return movieData;
+}
+
+Future<List<MovieData>> getAlllatestMovies(context) async{
+  var movieData = List<MovieData>();
+  try{
+    http.Response response = await http.get("$url?limit=100&sort_by=year");
+    int statusCode = response.statusCode;
+
+    if(statusCode == 200){
+      Map<String, dynamic> movieDatas= Map<String, dynamic>.from(json.decode(response.body));
+      movieData = (movieDatas["data"]["movies"] as List).map((val)=>MovieData.fromJson(val)).toList();
     }
   }on SocketException{
     return null;

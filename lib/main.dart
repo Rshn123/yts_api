@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
     onGenerateRoute: AppRoute.generateRoute,
       initialRoute: homeRoute,
+      debugShowCheckedModeBanner: false,
+      home:MainScreen()
     );
   }
 }
